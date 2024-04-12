@@ -17,6 +17,9 @@ void GameScene::Initialize() {
 
 	//スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
+
+	//デストラクタ
+	delete sprite_;
 }
 
 void GameScene::Update() {}
