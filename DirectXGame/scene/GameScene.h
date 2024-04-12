@@ -44,7 +44,7 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
-	//スプライトの生成
+	//スプライト
 	Sprite* sprite_ = nullptr;
 
 	//テクスチャハンドル
