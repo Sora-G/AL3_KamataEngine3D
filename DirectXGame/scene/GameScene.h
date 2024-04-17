@@ -53,6 +53,8 @@ private: // メンバ変数
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
+	//サウンドデータ読み込み
+	uint32_t soundDataHundle_ = 0;
 
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
