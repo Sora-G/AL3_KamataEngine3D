@@ -64,6 +64,9 @@ private: // メンバ変数
 	//ビュープロジェクション
 	ViewProjection viewProjection_;
 
+	//ImGuiで入力する値
+	float inputFloat3[3] = {0.0f, 0.0f, 0.0f};
+
 
 	/// <summary>
 	/// ゲームシーン用

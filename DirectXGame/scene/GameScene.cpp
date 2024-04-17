@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "ImGuiManager.h"
 
 GameScene::GameScene() {}
 
@@ -58,6 +59,25 @@ void GameScene::Update() {
 		//音声停止
 		audio_->StopWave(voiceHundle_);
 	}
+
+
+	///--デバッグウィンドウ作成--
+	//ImGui::Begin("Debug1");
+
+	//デバッグテキストの表示
+	//ImGui::Text("Kamata Tarou %d %d %d", 2050, 12, 31);
+	
+	//float3入力ボックス←これ便利！！
+	//ImGui::InputFloat3("InputFloat3", inputFloat3);
+	//float3スライダー←これ便利！！
+	//ImGui::SliderFloat3("SliderFloat3", inputFloat3, 0.0f, 0.0f);
+
+	//デモウィンドウの表示の有効化
+	//ImGui::ShowDemoWindow();
+
+
+	//ImGui::End();
+	///--ここまで--
 }
 
 void GameScene::Draw() {
