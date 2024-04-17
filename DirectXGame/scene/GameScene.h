@@ -47,6 +47,9 @@ private: // メンバ変数
 	//スプライト
 	Sprite* sprite_ = nullptr;
 
+	//3Dモデル
+	Model* model_ = nullptr;
+
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
