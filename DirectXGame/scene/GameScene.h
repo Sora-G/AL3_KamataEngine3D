@@ -53,6 +53,13 @@ private: // メンバ変数
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
+
+	//ワールドトランスフォーム
+	WorldTransform worldTransform_;
+	//ビュープロジェクション
+	ViewProjection viewProjection_;
+
+
 	/// <summary>
 	/// ゲームシーン用
 	/// </summary>

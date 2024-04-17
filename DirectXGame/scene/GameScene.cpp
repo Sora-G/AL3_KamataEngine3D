@@ -24,6 +24,11 @@ void GameScene::Initialize() {
 
 	//モデルの生成
 	model_ = Model::Create();
+
+	//ワールドトランスフォームの初期化
+	worldTransform_.Initialize();
+	//ビュープロジェクション
+	viewProjection_.Initialize();
 }
 
 void GameScene::Update() {
@@ -67,6 +72,9 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 
+	//3Dモデル描画(PreDrawとPostDrawの間に書く)
+	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
 #pragma endregion
@@ -79,8 +87,8 @@ void GameScene::Draw() {
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
 
-	//スプライトの描画
-	sprite_->Draw();
+	//スプライトの描画(PreDrawとPostDrawの間に書く)
+	/*sprite_->Draw();*/
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
