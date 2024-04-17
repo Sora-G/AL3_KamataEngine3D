@@ -128,7 +128,7 @@ void GameScene::Draw() {
 	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
 
 	//ラインを描画する
-	//PrimitiveDrawer::GetInstance()->DrawLine3d({0, 0, 0}, {0, 10, 0}, {1.0f, 0.0f, 0.0f, 1.0f});
+	PrimitiveDrawer::GetInstance()->DrawLine3d({0, 0, 0}, {0, 10, 0}, {1.0f, 0.0f, 0.0f, 1.0f});
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
