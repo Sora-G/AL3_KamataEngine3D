@@ -22,6 +22,12 @@ void GameScene::Initialize() {
 	//サウンドデータの読み込み
 	soundDataHundle_ = audio_->LoadWave("punch1.wav");
 
+	//音声の再生
+	/*audio_->PlayWave(soundDataHundle_);*/
+
+	//音声再生
+	voiceHundle_ = audio_->PlayWave(soundDataHundle_, true);
+
 	//スプライトの生成
 	sprite_ = Sprite::Create(textureHandle_, {100, 50});
 
@@ -46,6 +52,12 @@ void GameScene::Update() {
 	//移動した座標をスプライトに反映
 	sprite_->SetPosition(position);
 
+	//スペースキーを押した瞬間
+	if (input_->TriggerKey(DIK_SPACE))
+	{
+		//音声停止
+		audio_->StopWave(voiceHundle_);
+	}
 }
 
 void GameScene::Draw() {

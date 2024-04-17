@@ -56,6 +56,9 @@ private: // メンバ変数
 	//サウンドデータ読み込み
 	uint32_t soundDataHundle_ = 0;
 
+	//音声再生ハンドル
+	uint32_t voiceHundle_ = 0;
+
 	//ワールドトランスフォーム
 	WorldTransform worldTransform_;
 	//ビュープロジェクション
