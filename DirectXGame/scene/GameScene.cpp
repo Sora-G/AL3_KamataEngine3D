@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include <cassert>
 #include "ImGuiManager.h"
+#include "PrimitiveDrawer.h"
 
 GameScene::GameScene() {}
 
@@ -9,6 +10,7 @@ GameScene::~GameScene() {
 	// デストラクタ
 	delete sprite_;
 	delete model_;
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -39,6 +41,12 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	//ビュープロジェクション
 	viewProjection_.Initialize();
+
+	//ライン描画が参照するビュープロジェクションを指定する(アドレス渡し)
+	PrimitiveDrawer::GetInstance()->SetViewProjection(&viewProjection_);
+
+	//デバッグカメラ DebugCamera(画面の横幅,画面の縦幅)
+	debugCamera_ = new DebugCamera(1280, 720);
 }
 
 void GameScene::Update() {
@@ -78,6 +86,9 @@ void GameScene::Update() {
 
 	//ImGui::End();
 	///--ここまで--
+
+	//デバッグカメラの更新
+	debugCamera_->Update();
 }
 
 void GameScene::Draw() {
@@ -108,7 +119,10 @@ void GameScene::Draw() {
 	/// </summary>
 
 	//3Dモデル描画(PreDrawとPostDrawの間に書く)
-	model_->Draw(worldTransform_, viewProjection_, textureHandle_);
+	model_->Draw(worldTransform_, debugCamera_->GetViewProjection(), textureHandle_);
+
+	//ラインを描画する
+	//PrimitiveDrawer::GetInstance()->DrawLine3d({0, 0, 0}, {0, 10, 0}, {1.0f, 0.0f, 0.0f, 1.0f});
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();

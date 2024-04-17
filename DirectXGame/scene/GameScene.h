@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include "DebugCamera.h"
 
 /// <summary>
 /// ゲームシーン
@@ -49,6 +50,9 @@ private: // メンバ変数
 
 	//3Dモデル
 	Model* model_ = nullptr;
+
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
 
 	//テクスチャハンドル
 	uint32_t textureHandle_ = 0;
