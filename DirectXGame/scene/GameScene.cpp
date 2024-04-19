@@ -4,16 +4,37 @@
 
 GameScene::GameScene() {}
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+	//デストラクタ
+	delete model_;
+}
 
 void GameScene::Initialize() {
 
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
+	//3Dモデルの生成
+	model_ = Model::Create();
+
+	//画像の読み込み
+	textureHandle_ = TextureManager::Load("fantasy_ryuukishi.png");
+
+	//ビュープロジェクションの初期化
+	viewProjection_.Initialize();
+
+	//プレイヤーの生成
+	player_ = new Player();
+	//プレイヤーの初期化
+	player_->Initialize(model_, textureHandle_, &viewProjection_);
 }
 
-void GameScene::Update() {}
+void GameScene::Update() {
+
+	//プレイヤーの更新処理
+	player_->Update();
+
+}
 
 void GameScene::Draw() {
 
@@ -41,6 +62,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
+	
+	//プレイヤーの描画処理
+	player_->Draw();
 
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
