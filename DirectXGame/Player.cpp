@@ -28,6 +28,6 @@ void Player::Update() {
 /// <summary>
 /// 描画処理
 /// </summary>
-void Player::Draw() { 
-	model_->Draw(worldTransform_, viewProjection_, textureHundle_);
+void Player::Draw() {
+	model_->Draw(worldTransform_, *viewProjection_, textureHundle_);
 }
