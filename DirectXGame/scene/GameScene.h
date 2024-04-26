@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "ViewProjection.h"
 #include "WorldTransform.h"
+#include <vector>
 
 /// <summary>
 /// ゲームシーン
@@ -43,6 +44,13 @@ private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
+
+	//3Dモデルの生成
+	Model* model_ = nullptr;
+
+	std::vector<WorldTransform*> worldTransformBlocks_;
+
+
 
 	/// <summary>
 	/// ゲームシーン用
