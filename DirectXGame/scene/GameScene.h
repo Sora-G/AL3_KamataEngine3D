@@ -13,7 +13,7 @@
 /// ゲームシーン
 /// </summary>
 class GameScene {
-
+	
 public: // メンバ関数
 	/// <summary>
 	/// コンストクラタ
@@ -45,10 +45,16 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 
+	//ビュープロジェクション生成
+	ViewProjection viewProjection_;
+
 	//3Dモデルの生成
 	Model* model_ = nullptr;
 
-	std::vector<WorldTransform*> worldTransformBlocks_;
+	//ブロックのモデルを読み込む
+	Model* modelBlock_ = 0;
+
+	std::vector<std::vector<WorldTransform*>> worldTransformBlocks_;
 
 
 
