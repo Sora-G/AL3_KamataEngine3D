@@ -67,38 +67,36 @@ void GameScene::Update() {
 
 	// ブロックの更新
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
-		{
+		
 			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 
-				if (!worldTransformBlock)
-					continue;
+				/*if (!worldTransformBlock)
+				    continue;*/
 
-					// 平行移動行列
-					Matrix4x4 result = {1.0f,
-					                    0.0f,
-					                    0.0f,
-					                    0.0f,
-					                    0.0f,
-					                    1.0f,
-					                    0.0f,
-					                    0.0f,
-					                    0.0f,
-					                    0.0f,
-					                    1.0f,
-					                    0.0f,
-					                    worldTransformBlock->translation_.x,
-					                    worldTransformBlock->translation_.y,
-					                    worldTransformBlock->translation_.z,
-					                    1.0f};
+				// 平行移動行列
+				Matrix4x4 result = {1.0f,
+				                    0.0f,
+				                    0.0f,
+				                    0.0f,
+				                    0.0f,
+				                    1.0f,
+				                    0.0f,
+				                    0.0f,
+				                    0.0f,
+				                    0.0f,
+				                    1.0f,
+				                    0.0f,
+				                    worldTransformBlock->translation_.x,
+				                    worldTransformBlock->translation_.y,
+				                    worldTransformBlock->translation_.z,
+				                    1.0f};
 
-					// 平行移動だけ代入
-					worldTransformBlock->matWorld_ = result;
+				// 平行移動だけ代入
+				worldTransformBlock->matWorld_ = result;
 
-					// 定数バッファに転送する
-				    worldTransformBlock->TransferMatrix();
-				
+				// 定数バッファに転送する
+				worldTransformBlock->TransferMatrix();
 			}
-		}
 	}
 }
 
