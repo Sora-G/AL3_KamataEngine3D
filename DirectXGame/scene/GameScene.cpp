@@ -18,6 +18,8 @@ GameScene::~GameScene() {
 		}
 	}
 	//worldTransformBlocks_.clear();
+
+	delete debugCamera_;
 }
 
 void GameScene::Initialize() {
@@ -44,59 +46,74 @@ void GameScene::Initialize() {
 	//要素数を変更する
 	//配列を設定
 	worldTransformBlocks_.resize(kNumBlockVirtical);
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++)
-	{
-		//１列の要素数を設定
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		// １列の要素数を設定
 		worldTransformBlocks_[i].resize(kNumBlockHorizontal);
 	}
 
 	//キューブの生成
-	for (uint32_t i = 0; i < kNumBlockVirtical; i++)
-	{
-		for (uint32_t j = 0; j < kNumBlockHorizontal; j++)
-		{
+	for (uint32_t i = 0; i < kNumBlockVirtical; i++) {
+		for (uint32_t j = 0; j < kNumBlockHorizontal; j++) {
+
+			//if文＋continueで表示しないブロックを指定できる
+			if ((i + j) % 2 == 0)
+				continue;
+
 			worldTransformBlocks_[i][j] = new WorldTransform();
 			worldTransformBlocks_[i][j]->Initialize();
 			worldTransformBlocks_[i][j]->translation_.x = kBlockWidth * j;
 			worldTransformBlocks_[i][j]->translation_.y = kBlockHeight * i;
 		}
 	}
+
+	//デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
 }
 
 void GameScene::Update() {
 
 	// ブロックの更新
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
-		
-			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 
-				/*if (!worldTransformBlock)
-				    continue;*/
+		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
 
-				// 平行移動行列
-				Matrix4x4 result = {1.0f,
-				                    0.0f,
-				                    0.0f,
-				                    0.0f,
-				                    0.0f,
-				                    1.0f,
-				                    0.0f,
-				                    0.0f,
-				                    0.0f,
-				                    0.0f,
-				                    1.0f,
-				                    0.0f,
-				                    worldTransformBlock->translation_.x,
-				                    worldTransformBlock->translation_.y,
-				                    worldTransformBlock->translation_.z,
-				                    1.0f};
+			if (!worldTransformBlock)
+				continue;
 
-				// 平行移動だけ代入
-				worldTransformBlock->matWorld_ = result;
+			// 平行移動行列
+			Matrix4x4 result = {
+			    1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, worldTransformBlock->translation_.x, worldTransformBlock->translation_.y, worldTransformBlock->translation_.z,
+			    1.0f};
 
-				// 定数バッファに転送する
-				worldTransformBlock->TransferMatrix();
-			}
+			// 平行移動だけ代入
+			worldTransformBlock->matWorld_ = result;
+
+			// 定数バッファに転送する
+			worldTransformBlock->TransferMatrix();
+		}
+	}
+
+	//デバッグカメラの更新
+	debugCamera_->Update();
+
+#ifdef _DEBUG
+
+	if (input_->TriggerKey(DIK_SPACE))
+	{
+		isDebugCameraActive_ = true;
+	}
+
+#endif // _DEBUG
+
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView=debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection=debugCamera_->GetViewProjection().matProjection;
+		//ビュープロジェクション行列の転送
+		viewProjection_.TransferMatrix();
+	} else {
+		//ビュープロジェクション行列の更新と転送
+		viewProjection_.UpdateMatrix();
 	}
 }
 
@@ -129,10 +146,10 @@ void GameScene::Draw() {
 
 	//ブロックの描画
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
-		{
-			for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
-				modelBlock_->Draw(*worldTransformBlock, viewProjection_);
-			}
+		for (WorldTransform* worldTransformBlock : worldTransformBlockLine) {
+			if (!worldTransformBlock)
+				continue;
+			modelBlock_->Draw(*worldTransformBlock, viewProjection_);
 		}
 	}
 
