@@ -36,8 +36,8 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ビュープロジェクション生成
-	viewProjection_.farZ = 500;
 	viewProjection_.Initialize();
+	viewProjection_.farZ = 500;
 
 
 	//3Dモデルデータの生成
