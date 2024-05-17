@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "TextureManager.h"
 #include <cassert>
+#include "MathUtilityForText.h"
 
 //コンストラクタ
 GameScene::GameScene() {}
@@ -80,16 +81,20 @@ void GameScene::Update() {
 			if (!worldTransformBlock)
 				continue;
 
-			// 平行移動行列
-			Matrix4x4 result = {
-			    1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, worldTransformBlock->translation_.x, worldTransformBlock->translation_.y, worldTransformBlock->translation_.z,
-			    1.0f};
+			//// 平行移動行列
+			//Matrix4x4 result = {
+			//    1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, worldTransformBlock->translation_.x, worldTransformBlock->translation_.y, worldTransformBlock->translation_.z,
+			//    1.0f};
 
-			// 平行移動だけ代入
-			worldTransformBlock->matWorld_ = result;
+			//Matrix4x4 matWorld = MakeAffineMatrix(worldTransformBlock->scale_, worldTransformBlock->rotation_, worldTransformBlock->translation_);
 
-			// 定数バッファに転送する
-			worldTransformBlock->TransferMatrix();
+			//// 平行移動だけ代入
+			//worldTransformBlock->matWorld_ = matWorld;
+
+			//// 定数バッファに転送する
+			//worldTransformBlock->TransferMatrix();
+
+			worldTransformBlock->UpdateMatrix();
 		}
 	}
 
