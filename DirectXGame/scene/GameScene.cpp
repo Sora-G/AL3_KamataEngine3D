@@ -11,6 +11,10 @@ GameScene::~GameScene() {
 	
 	delete model_;
 
+	delete player_;
+
+	delete skydome_;
+
 	delete modelBlock_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -42,6 +46,11 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	// プレイヤーの初期化
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
+
+	//天球の生成
+	skydome_ = new Skydome();
+	//天球の初期化
+	skydome_->Initialize();
 
 
 	// ブロックのモデルを読み込む
@@ -84,6 +93,9 @@ void GameScene::Update() {
 
 	//プレイヤーの更新
 	player_->Update();
+
+	//天球の更新
+	skydome_->Update();
 
 	// ブロックの更新
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -163,6 +175,9 @@ void GameScene::Draw() {
 
 	// プレイヤーの描画処理
 	player_->Draw();
+
+	// 天球の描画処理
+	skydome_->Draw();
 
 	//ブロックの描画
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {

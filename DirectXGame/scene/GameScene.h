@@ -8,6 +8,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "Player.h"
+#include "Skydome.h"
 #include <vector>
 #include "DebugCamera.h"
 
@@ -55,6 +56,9 @@ private: // メンバ変数
 
 	//プレイヤーの生成
 	Player* player_ = nullptr;
+
+	//天球の生成
+	Skydome* skydome_ = nullptr;
 
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
