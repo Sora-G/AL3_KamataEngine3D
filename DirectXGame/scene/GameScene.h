@@ -60,6 +60,9 @@ private: // メンバ変数
 	//天球の生成
 	Skydome* skydome_ = nullptr;
 
+	//3Dモデル
+	Model* modelSkydome_ = nullptr;
+
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 

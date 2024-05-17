@@ -10,7 +10,7 @@ public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize(Model* model, ViewProjection* viewProjection);
 
 	/// <summary>
 	/// 更新処理
@@ -28,6 +28,6 @@ private:
 	//モデル
 	Model* model_ = nullptr;
 
-
-
+	//ビュープロジェクション
+	ViewProjection* viewProjection_ = nullptr;
 };

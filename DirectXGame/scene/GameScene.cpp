@@ -15,6 +15,8 @@ GameScene::~GameScene() {
 
 	delete skydome_;
 
+	delete modelSkydome_;
+
 	delete modelBlock_;
 
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
@@ -34,7 +36,9 @@ void GameScene::Initialize() {
 	audio_ = Audio::GetInstance();
 
 	// ビュープロジェクション生成
+	viewProjection_.farZ = 500;
 	viewProjection_.Initialize();
+
 
 	//3Dモデルデータの生成
 	model_ = Model::Create();
@@ -47,11 +51,13 @@ void GameScene::Initialize() {
 	// プレイヤーの初期化
 	player_->Initialize(model_, textureHandle_, &viewProjection_);
 
-	//天球の生成
-	skydome_ = new Skydome();
-	//天球の初期化
-	skydome_->Initialize();
+	//３Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 
+	// 天球の生成
+	skydome_ = new Skydome();
+	// 天球の初期化
+	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
 	// ブロックのモデルを読み込む
 	modelBlock_ = Model::CreateFromOBJ("cube");
