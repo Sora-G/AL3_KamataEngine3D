@@ -53,6 +53,9 @@ private: // メンバ変数
 	//3Dモデルの生成
 	Model* model_ = nullptr;
 
+	//プレイヤーの生成
+	Player* player = nullptr;
+
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
 
