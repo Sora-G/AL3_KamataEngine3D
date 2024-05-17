@@ -38,6 +38,12 @@ void GameScene::Initialize() {
 	// 画像の読み込み
 	textureHandle_ = TextureManager::Load("fantasy_ryuukishi.png");
 
+	// プレイヤーの生成
+	player_ = new Player();
+	// プレイヤーの初期化
+	player_->Initialize(model_, textureHandle_, &viewProjection_);
+
+
 	// ブロックのモデルを読み込む
 	modelBlock_ = Model::CreateFromOBJ("cube");
 
@@ -75,6 +81,9 @@ void GameScene::Initialize() {
 }
 
 void GameScene::Update() {
+
+	//プレイヤーの更新
+	player_->Update();
 
 	// ブロックの更新
 	for (std::vector<WorldTransform*>& worldTransformBlockLine : worldTransformBlocks_) {
