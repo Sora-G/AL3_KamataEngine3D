@@ -52,6 +52,9 @@ private: // メンバ変数
 	//3Dモデルの生成
 	Model* model_ = nullptr;
 
+	// テクスチャハンドル
+	uint32_t textureHandle_ = 0;
+
 	//ブロックのモデルを読み込む
 	Model* modelBlock_ = 0;
 

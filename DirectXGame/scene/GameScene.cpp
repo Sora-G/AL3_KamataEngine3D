@@ -35,6 +35,9 @@ void GameScene::Initialize() {
 	//3Dモデルデータの生成
 	model_ = Model::Create();
 
+	// 画像の読み込み
+	textureHandle_ = TextureManager::Load("fantasy_ryuukishi.png");
+
 	// ブロックのモデルを読み込む
 	modelBlock_ = Model::CreateFromOBJ("cube");
 
