@@ -46,13 +46,16 @@ void GameScene::Initialize() {
 	// 画像の読み込み
 	textureHandle_ = TextureManager::Load("fantasy_ryuukishi.png");
 
+	//３Dモデルの生成
+	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+
+	//プレイヤーモデルの生成
+	modelPlayer_ = Model::CreateFromOBJ("player", true);
+
 	// プレイヤーの生成
 	player_ = new Player();
 	// プレイヤーの初期化
-	player_->Initialize(model_, textureHandle_, &viewProjection_);
-
-	//３Dモデルの生成
-	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	player_->Initialize(modelPlayer_, &viewProjection_);
 
 	// 天球の生成
 	skydome_ = new Skydome();
@@ -60,14 +63,14 @@ void GameScene::Initialize() {
 	skydome_->Initialize(modelSkydome_, &viewProjection_);
 
 	// ブロックのモデルを読み込む
-	modelBlock_ = Model::CreateFromOBJ("cube");
+	modelBlock_ = Model::CreateFromOBJ("block",true);
 
 	//要素数
 	const uint32_t kNumBlockVirtical = 10;
 	const uint32_t kNumBlockHorizontal = 20;
 	//ブロック1個分の横幅
-	const float kBlockWidth = 2.0f;
-	const float kBlockHeight = 2.0f;
+	const float kBlockWidth = 1.0f;
+	const float kBlockHeight = 1.0f;
 	//要素数を変更する
 	//配列を設定
 	worldTransformBlocks_.resize(kNumBlockVirtical);

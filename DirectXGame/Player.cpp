@@ -4,13 +4,12 @@
 /// <summary>
 /// 初期化
 /// </summary>
-void Player::Initialize(Model* model, uint32_t textureHandle, ViewProjection* viewProjection) {
+void Player::Initialize(Model* model, ViewProjection* viewProjection) {
 	// Nullポインタチェック
 	assert(model);
 
 	// 引数として受け取ったデータをメンバ変数に記録する
 	model_ = model;
-	textureHundle_ = textureHandle;
 	viewProjection_ = viewProjection;
 
 	// ワールド変換の初期化
@@ -21,11 +20,11 @@ void Player::Initialize(Model* model, uint32_t textureHandle, ViewProjection* vi
 /// 更新処理
 /// </summary>
 void Player::Update() {
-	// 行列を定数バッファに転送
-	worldTransform_.TransferMatrix();
+	// 行列を更新して定数バッファに転送
+	worldTransform_.UpdateMatrix();
 }
 
 /// <summary>
 /// 描画処理
 /// </summary>
-void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_, textureHundle_); }
+void Player::Draw() { model_->Draw(worldTransform_, *viewProjection_); }
