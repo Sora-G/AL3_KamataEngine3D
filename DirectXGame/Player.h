@@ -3,12 +3,12 @@
 #include "WorldTransform.h"
 #include "MathUtilityForText.h"
 
-
 enum class LRDirection 
 { 
 	kRight, kLeft 
 };
 
+class MapChipField;
 
 /// <summary>
 ///	自キャラ
@@ -37,7 +37,12 @@ public:
 
 	const Vector3& GetVelocity() const { return velocity_; }
 
+	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
+
 private:
+	//マップチップによるフィールド
+	MapChipField* mapChipField_ = nullptr;
+
 	// ワールド変換データ
 	WorldTransform worldTransform_;
 

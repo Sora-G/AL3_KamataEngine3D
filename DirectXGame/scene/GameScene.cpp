@@ -54,14 +54,8 @@ void GameScene::Initialize() {
 	//プレイヤーモデルの生成
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
 
-	// プレイヤーの生成
-	player_ = new Player();
-
 	//座標をマップチップ番号で指定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 18);
-
-	// プレイヤーの初期化
-	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 
 	// 天球の生成
 	skydome_ = new Skydome();
@@ -103,10 +97,6 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
-	//マップチップフィールド
-	mapChipField_ = new MapChipField();
-	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
-
 	//表示ブロックの生成
 	GenerateBlocks();
 
@@ -118,6 +108,17 @@ void GameScene::Initialize() {
 
 	Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
 	cameraController_->SetMovableArea(cameraArea);
+
+
+	// マップチップフィールドの生成と初期化
+	mapChipField_ = new MapChipField();
+	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+
+	// プレイヤーの生成と初期化
+	player_ = new Player();
+	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
+
+	player_->SetMapChipField(mapChipField_);
 }
 
 void GameScene::Update() {
