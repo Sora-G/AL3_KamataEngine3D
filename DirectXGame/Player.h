@@ -39,6 +39,38 @@ public:
 
 	void SetMapChipField(MapChipField* mapChipField) { mapChipField_ = mapChipField; }
 
+	void InputMove();
+
+	struct  CollisionMapInfo 
+	{
+		bool ceiling = false;//天井衝突フラグ
+		bool landing = false;//着地フラグ
+		bool hitWall = false;
+		Vector3 move;
+	};
+
+	void CheckMapCollision(CollisionMapInfo& info);
+	void CheckMapCollisionUp(CollisionMapInfo& info);
+	void CheckMapCollisionDown(CollisionMapInfo& info);
+	void CheckMapCollisionRight(CollisionMapInfo& info);
+	void CheckMapCollisionLeft(CollisionMapInfo& info);
+
+	//角
+	enum Corner
+	{
+		kRightBottom,
+		kLeftBottom,
+		kRightTop,
+		kLeftTop,
+		kNumCorner
+	};
+
+	Vector3 CornerPosition(const Vector3& center, Corner corner);
+
+	void CheckMapChipCollisionHit(const CollisionMapInfo& info);
+
+	void CellingContactHit(const CollisionMapInfo& info);
+
 private:
 	//マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
@@ -77,4 +109,10 @@ private:
 	static inline float kLimitFallSpeed = 0.5;
 	//ジャンプ初速
 	static inline float kJumpAcceleration = 1.0f;
+
+	static inline const float kBlank = 5.0f;
+
+	//プレイヤーの当たり判定
+	static inline const float kWidth = 0.8f;
+	static inline const float kHeight = 0.8f;
 };

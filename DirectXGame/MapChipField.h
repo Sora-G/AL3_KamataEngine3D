@@ -13,10 +13,19 @@ struct MapChipData
 	std::vector<std::vector<MapChipType>> data;
 };
 
+//範囲短径
+struct Rect
+{
+	float left;
+	float right;
+	float bottom;
+	float top;
+};
+
 /// <summary>
 /// マップチップフィールド
 /// </summary>
-class MapChipField
+class MapChipField 
 {
 	//１ブロックのサイズ
 	static inline const float kBlockWidth = 1.0f;
@@ -42,4 +51,13 @@ class MapChipField
 	uint32_t GetNumBlockVirtical() { return kNumBlockVirtical; }
 	// ブロックの横方向の個数を取得
 	uint32_t GetNumBlockHorizontal() { return kNumBlockHorizontal; }
+
+	struct IndexSet {
+		uint32_t xIndex;
+		uint32_t yIndex;
+	};
+
+	IndexSet GetMapChipIndexSetByPosition(const Vector3& position);
+
+	Rect GetRectByIndex(uint32_t xIndex, uint32_t yIndex);
 };
