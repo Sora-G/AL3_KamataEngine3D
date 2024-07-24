@@ -37,9 +37,6 @@ void Player::Update()
 	//移動
 	worldTransform_.translation_ += velocity_;
 
-	// 行列を更新して定数バッファに転送
-	worldTransform_.UpdateMatrix();
-
 	//衝突情報を初期化
 	CollisionMapInfo collisionMapInfo;
 	//移動量に速度の値をコピー
@@ -47,6 +44,9 @@ void Player::Update()
 
 	//マップ衝突チェック
 	CheckMapCollision(collisionMapInfo);
+
+	// 行列を更新して定数バッファに転送
+	worldTransform_.UpdateMatrix();
 }
 
 /// <summary>

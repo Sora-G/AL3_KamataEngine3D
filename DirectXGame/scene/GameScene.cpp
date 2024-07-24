@@ -97,28 +97,26 @@ void GameScene::Initialize() {
 	//デバッグカメラの生成
 	debugCamera_ = new DebugCamera(1280, 720);
 
-	//表示ブロックの生成
-	GenerateBlocks();
-
-	//カメラコントローラーの初期化
-	cameraController_ = new CameraController();
-	cameraController_->Initialize();
-	cameraController_->SetTarget(player_);
-	cameraController_->Reset();
-
-	Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
-	cameraController_->SetMovableArea(cameraArea);
-
-
 	// マップチップフィールドの生成と初期化
 	mapChipField_ = new MapChipField();
 	mapChipField_->LoadMapChipCsv("Resources/blocks.csv");
+	// 表示ブロックの生成
+	GenerateBlocks();
 
 	// プレイヤーの生成と初期化
 	player_ = new Player();
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 
 	player_->SetMapChipField(mapChipField_);
+
+	// カメラコントローラーの初期化
+	cameraController_ = new CameraController();
+	cameraController_->Initialize();
+	cameraController_->SetTarget(player_);
+	cameraController_->Reset();
+
+	CameraController::Rect cameraArea = {12.0f, 100 - 12.0f, 6.0f, 6.0f};
+	cameraController_->SetMovableArea(cameraArea);
 }
 
 void GameScene::Update() {

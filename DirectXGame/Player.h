@@ -106,9 +106,9 @@ private:
 	//重力加速度
 	static inline float kGravityAcceleration = 0.5f;
 	//最大落下速度
-	static inline float kLimitFallSpeed = 0.5;
+	static inline float kLimitFallSpeed = 0.4f;
 	//ジャンプ初速
-	static inline float kJumpAcceleration = 1.0f;
+	static inline float kJumpAcceleration = 2.0f;
 
 	static inline const float kBlank = 5.0f;
 
