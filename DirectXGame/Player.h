@@ -71,6 +71,8 @@ public:
 
 	void CellingContactHit(const CollisionMapInfo& info);
 
+	void CellingSwitch(const CollisionMapInfo& info);
+
 private:
 	//マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
@@ -86,9 +88,9 @@ private:
 
 	Vector3 velocity_ = {};
 
-	static inline const float kAcceleration = 0.05f;
-	static inline const float kAttenuation = 0.05f;
-	static inline const float kLimitRunSpeed = 0.5f;
+	static inline const float kAcceleration = 0.01f;
+	static inline const float kAttenuation = 0.01f;
+	static inline const float kLimitRunSpeed = 0.1f;
 
 	LRDirection lrDirection_ = LRDirection::kRight;
 
@@ -106,13 +108,16 @@ private:
 	//重力加速度
 	static inline float kGravityAcceleration = 0.5f;
 	//最大落下速度
-	static inline float kLimitFallSpeed = 0.4f;
+	static inline float kLimitFallSpeed = 0.3f;
 	//ジャンプ初速
-	static inline float kJumpAcceleration = 2.0f;
+	static inline float kJumpAcceleration = 1.5f;
 
 	static inline const float kBlank = 5.0f;
 
 	//プレイヤーの当たり判定
 	static inline const float kWidth = 0.8f;
 	static inline const float kHeight = 0.8f;
+
+	//着地時の速度減衰率
+	static inline const float kAttenuationLanding = 1.0f;
 };
