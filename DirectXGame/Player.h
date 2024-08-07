@@ -10,6 +10,8 @@ enum class LRDirection
 
 class MapChipField;
 
+class Enemy;
+
 /// <summary>
 ///	自キャラ
 /// </summary>
@@ -74,6 +76,16 @@ public:
 	void CellingContactHit(const CollisionMapInfo& info);
 
 	void CellingSwitch(const CollisionMapInfo& info);
+
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
+
+	//AABBを取得
+	AABB GetAABB();
+
+	// 衝突応答
+	void OnCollision(const Player* player);
+	void OnCollision(const Enemy* enemy);
 
 private:
 	//マップチップによるフィールド

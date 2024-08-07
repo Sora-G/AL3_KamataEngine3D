@@ -3,6 +3,7 @@
 #include <math.h>
 #include "Matrix4x4.h"
 #include "Vector3.h"
+#include "AABB.h"
 
 Matrix4x4 MatrixMultply(Matrix4x4& m1, Matrix4x4& m2);
 
@@ -18,3 +19,5 @@ const Vector3 operator+(const Vector3& v1, const Vector3& v2);
 Vector3& operator*=(Vector3& v, float s);
 
 const Vector3 operator*(const Vector3& v, float s);
+
+bool IsCollision(const AABB& aabb1, const AABB& aabb2);

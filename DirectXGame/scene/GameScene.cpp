@@ -13,6 +13,11 @@ GameScene::~GameScene() {
 
 	delete player_;
 
+	for (Enemy* enemy : enemies_)
+	{
+		delete enemy;
+	}
+
 	delete skydome_;
 
 	delete modelSkydome_;
@@ -53,6 +58,9 @@ void GameScene::Initialize() {
 
 	//プレイヤーモデルの生成
 	modelPlayer_ = Model::CreateFromOBJ("player", true);
+
+	//敵のモデルの生成
+	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
 
 	//座標をマップチップ番号で指定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 18);
@@ -108,6 +116,15 @@ void GameScene::Initialize() {
 	player_->Initialize(modelPlayer_, &viewProjection_, playerPosition);
 
 	player_->SetMapChipField(mapChipField_);
+	
+	//敵の生成と初期化
+	for (int32_t i = 0; i < 3; ++i)
+	{
+		Enemy* newEnemy = new Enemy();
+		Vector3 enemyPosition = mapChipField_->GetMapChipPositionByIndex(11 + i * 3, 18 - i);
+		newEnemy->Initialize(modelEnemy_, &viewProjection_, enemyPosition);
+		enemies_.push_back(newEnemy);
+	}
 
 	// カメラコントローラーの初期化
 	cameraController_ = new CameraController();
@@ -123,6 +140,15 @@ void GameScene::Update() {
 
 	//プレイヤーの更新
 	player_->Update();
+
+	//敵の更新
+	for (Enemy* enemy : enemies_)
+	{
+		enemy->Update();
+	}
+	
+	//全ての当たり判定を行う
+	CheckAllCollisions();
 
 	//天球の更新
 	skydome_->Update();
@@ -211,6 +237,12 @@ void GameScene::Draw() {
 	// プレイヤーの描画処理
 	player_->Draw();
 
+	//敵の描画処理
+	for (Enemy* enemy : enemies_)
+	{
+		enemy->Draw();
+	}
+
 	// 天球の描画処理
 	skydome_->Draw();
 
@@ -266,4 +298,33 @@ void GameScene::GenerateBlocks()
 			}
 		}
 	}
+}
+
+void GameScene::CheckAllCollisions() 
+{
+	#pragma region
+	{
+		// 対象１と２の座標
+		AABB aabb1, aabb2;
+
+		// 自キャラの座標
+		aabb1 = player_->GetAABB();
+
+		// 自キャラと敵弾全ての当たり判定
+		for (Enemy* enemy : enemies_) {
+			// 敵弾の座標
+			aabb2 = enemy->GetAABB();
+
+			// AABB同士の交差判定
+			if (IsCollision(aabb1, aabb2))
+			{
+				//自キャラの衝突時コールバックを呼び出す
+				player_->OnCollision(enemy);
+				//敵弾の衝突時コールバックを呼び出す
+				enemy->OnCollision(player_);
+			}
+			
+		}
+	}
+	#pragma endregion
 }

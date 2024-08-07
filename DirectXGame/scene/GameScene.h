@@ -8,6 +8,7 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Skydome.h"
 #include <vector>
 #include "DebugCamera.h"
@@ -50,9 +51,8 @@ public: // メンバ関数
 	/// </summary>
 	void GenerateBlocks();
 
-
-	
-
+	//全ての当たり判定を行う
+	void CheckAllCollisions();
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -68,6 +68,9 @@ private: // メンバ変数
 	//プレイヤーの生成
 	Player* player_ = nullptr;
 
+	//敵の生成
+	std::list<Enemy*> enemies_;
+
 	//天球の生成
 	Skydome* skydome_ = nullptr;
 
@@ -76,6 +79,9 @@ private: // メンバ変数
 
 	//プレイヤーモデル
 	Model* modelPlayer_ = nullptr;
+
+	//敵のモデル
+	Model* modelEnemy_ = nullptr;
 
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;
