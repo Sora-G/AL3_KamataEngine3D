@@ -251,7 +251,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info)
 void Player::CheckMapCollisionRight(CollisionMapInfo& info) 
 {
 	// 移動あり？
-	if (info.move.x >= 0.0f) {
+	if (info.move.x <= 0.0f) {
 		return;
 	}
 
@@ -329,7 +329,9 @@ void Player::CheckMapCollisionLeft(CollisionMapInfo& info)
 		indexSet = mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, -kWidth / 2.0f, 0));
 		// めり込み先の範囲短形
 		Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
-		info.move.x= std::min(0.0f, info.move.x);
+
+		info.move.x = std::min(0.0f, rect.left - worldTransform_.translation_.x + (kWidth / 2.0f + kBlank));
+
 		// 壁に当たったことを記録する
 		info.hitWall = true;
 	}
