@@ -242,7 +242,7 @@ void Player::CheckMapCollisionDown(CollisionMapInfo& info)
 		indexSet = mapChipField_->GetMapChipIndexSetByPosition(worldTransform_.translation_ + Vector3(0, -kHeight / 2.0f, 0));
 		// めり込み先の範囲短形
 		Rect rect = mapChipField_->GetRectByIndex(indexSet.xIndex, indexSet.yIndex);
-		info.move.y = std::min(0.0f, info.move.y);
+		info.move.y = std::min(0.0f, rect.top - worldTransform_.translation_.y + (kHeight / 2.0f + kBlank));
 		// 天井に当たったことを記録する
 		info.landing = true;
 	}
