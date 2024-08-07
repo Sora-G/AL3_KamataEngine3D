@@ -49,6 +49,8 @@ public:
 		Vector3 move;
 	};
 
+	void WallContactHit(const CollisionMapInfo& info);
+
 	void CheckMapCollision(CollisionMapInfo& info);
 	void CheckMapCollisionUp(CollisionMapInfo& info);
 	void CheckMapCollisionDown(CollisionMapInfo& info);
@@ -120,4 +122,7 @@ private:
 
 	//着地時の速度減衰率
 	static inline const float kAttenuationLanding = 1.0f;
+
+	//接触時の速度減衰率
+	static inline const float kAttenuationWall = 0.2f;
 };
