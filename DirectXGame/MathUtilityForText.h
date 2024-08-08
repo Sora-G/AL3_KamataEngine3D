@@ -21,3 +21,9 @@ Vector3& operator*=(Vector3& v, float s);
 const Vector3 operator*(const Vector3& v, float s);
 
 bool IsCollision(const AABB& aabb1, const AABB& aabb2);
+
+// z軸回転行列
+Matrix4x4 MakeRotateZMatrix(float radian);
+
+// 座標変換
+Vector3 Transform(const Vector3& vector, const Matrix4x4& matrix);

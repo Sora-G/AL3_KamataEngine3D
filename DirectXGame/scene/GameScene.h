@@ -9,6 +9,7 @@
 #include "WorldTransform.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "DeathParticles.h"
 #include "Skydome.h"
 #include <vector>
 #include "DebugCamera.h"
@@ -82,6 +83,12 @@ private: // メンバ変数
 
 	//敵のモデル
 	Model* modelEnemy_ = nullptr;
+
+	//デスパーティクルのモデル
+	Model* modelDeathParticles_ = nullptr;
+
+	//デスパーティクル
+	DeathParticles* deathParticles_ = nullptr;
 
 	// テクスチャハンドル
 	uint32_t textureHandle_ = 0;

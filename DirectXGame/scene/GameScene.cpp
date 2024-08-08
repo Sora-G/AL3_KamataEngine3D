@@ -140,13 +140,14 @@ void GameScene::Update() {
 
 	//プレイヤーの更新
 	player_->Update();
+	Vector3 position = player_->GetWorldPosition();
 
 	//敵の更新
 	for (Enemy* enemy : enemies_)
 	{
 		enemy->Update();
 	}
-	
+
 	//全ての当たり判定を行う
 	CheckAllCollisions();
 
