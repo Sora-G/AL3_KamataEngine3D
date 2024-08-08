@@ -1,5 +1,6 @@
 #include "MathUtilityForText.h"
 #include <cmath>
+#include <cassert>
 #include <numbers>
 
 Matrix4x4 MatrixMultply(Matrix4x4& m1, Matrix4x4& m2) 

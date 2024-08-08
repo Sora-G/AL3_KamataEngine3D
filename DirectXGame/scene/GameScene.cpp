@@ -18,6 +18,8 @@ GameScene::~GameScene() {
 		delete enemy;
 	}
 
+	delete deathParticles_;
+
 	delete skydome_;
 
 	delete modelSkydome_;
@@ -61,6 +63,8 @@ void GameScene::Initialize() {
 
 	//敵のモデルの生成
 	modelEnemy_ = Model::CreateFromOBJ("enemy", true);
+
+	modelDeathParticles_ = Model::CreateFromOBJ("deathParticle", true);
 
 	//座標をマップチップ番号で指定
 	Vector3 playerPosition = mapChipField_->GetMapChipPositionByIndex(1, 18);
@@ -126,6 +130,12 @@ void GameScene::Initialize() {
 		enemies_.push_back(newEnemy);
 	}
 
+	player_->Update();
+	Vector3 position = player_->GetWorldPosition();
+	// デスパーティクルの生成（仮）
+	deathParticles_ = new DeathParticles;
+	deathParticles_->Initialize(modelDeathParticles_, &viewProjection_, position);
+
 	// カメラコントローラーの初期化
 	cameraController_ = new CameraController();
 	cameraController_->Initialize();
@@ -147,6 +157,9 @@ void GameScene::Update() {
 	{
 		enemy->Update();
 	}
+
+	//デスパーティクルの更新
+	deathParticles_->Update();
 
 	//全ての当たり判定を行う
 	CheckAllCollisions();
@@ -243,6 +256,9 @@ void GameScene::Draw() {
 	{
 		enemy->Draw();
 	}
+
+	//デスパーティクルの描画
+	deathParticles_->Draw();
 
 	// 天球の描画処理
 	skydome_->Draw();
