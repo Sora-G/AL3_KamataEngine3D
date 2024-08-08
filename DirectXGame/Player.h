@@ -87,6 +87,9 @@ public:
 	void OnCollision(const Player* player);
 	void OnCollision(const Enemy* enemy);
 
+	//デスフラグのgetter
+	bool IsDead() const { return isDead_; }
+
 private:
 	//マップチップによるフィールド
 	MapChipField* mapChipField_ = nullptr;
@@ -137,4 +140,7 @@ private:
 
 	//接触時の速度減衰率
 	static inline const float kAttenuationWall = 0.2f;
+
+	//デスフラグ
+	bool isDead_ = false;
 };

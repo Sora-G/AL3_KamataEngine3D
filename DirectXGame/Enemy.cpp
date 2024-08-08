@@ -34,7 +34,7 @@ void Enemy::Update()
 	walkTimer_ += 1.0f / 60.0f;
 
 	//簡易版の計算
-	worldTransform_.rotation_.x = std::sin(std::numbers::pi_v<float> * 2.0f * walkTimer_ / kWalkMotionTime);
+	worldTransform_.rotation_.x = std::sin(2.0f * std::numbers::pi_v<float> * walkTimer_ / kWalkMotionTime);
 
 	//行列の更新
 	worldTransform_.UpdateMatrix();
