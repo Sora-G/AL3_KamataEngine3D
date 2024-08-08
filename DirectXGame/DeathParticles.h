@@ -19,6 +19,9 @@ public:
 
 	void Draw();
 
+	// デスフラグのgetter
+	bool IsFinished() const { return isFinished_; }
+
 private:
 
 	//パーティクルの個数

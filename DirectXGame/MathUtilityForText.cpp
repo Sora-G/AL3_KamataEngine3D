@@ -63,7 +63,10 @@ Matrix4x4 MakeAffineMatrix(const Vector3& scale, const Vector3& rot, const Vecto
 		translate.x, translate.y, translate.z, 1
 	};
 
-	Matrix4x4 ansMat = MatrixMultply(RotateMatY, TranslateMat);
+	Matrix4x4 ScaleMat = {scale.x, 0, 0, 0, 0, scale.y, 0, 0, 0, 0, scale.z, 0, 0, 0, 0, 1};
+
+	Matrix4x4 ansMat = MatrixMultply(ScaleMat, RotateMatY);
+	ansMat = MatrixMultply(ansMat, TranslateMat);
 
 	return ansMat;
 }

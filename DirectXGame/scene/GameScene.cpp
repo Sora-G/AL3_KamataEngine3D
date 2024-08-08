@@ -381,6 +381,11 @@ void GameScene::ChangePhase()
 			}
 		}
 
+		if (deathParticles_ && deathParticles_->IsFinished())
+		{
+			isFinished_ = true;
+		}
+
 		break;
 	}
 }

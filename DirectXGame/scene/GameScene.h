@@ -58,6 +58,9 @@ public: // メンバ関数
 	//フェーズの切り替え
 	void ChangePhase();
 
+	// デスフラグのgetter
+	bool IsFinished() const { return isFinished_; }
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -121,6 +124,9 @@ private: // メンバ変数
 
 	//カメラコントローラー
 	CameraController* cameraController_ = nullptr;
+
+	// 終了フラグ
+	bool isFinished_ = false; 
 
 	/// <summary>
 	/// ゲームシーン用
